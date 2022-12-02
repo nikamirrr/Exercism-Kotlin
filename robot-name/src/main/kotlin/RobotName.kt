@@ -17,11 +17,10 @@ class Robot() {
     }
 
     private fun generateName(): String {
-        var digitName = 0
+        var digitName : Int
         do {
             digitName = Random.nextInt(676000)
-        } while (takenNames.contains(digitName))
-        takenNames.add(digitName)
+        } while (!takenNames.add(digitName))
         return "%c%c%03d".format(Char(65 + digitName % 26),
             Char(65 + (digitName / 26) % 26),
             digitName / 676)

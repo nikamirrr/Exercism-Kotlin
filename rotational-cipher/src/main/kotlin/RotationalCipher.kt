@@ -1,8 +1,8 @@
 class RotationalCipher(private val key: Int) {
 
-    private val normkey = key % 26
-    private val lckey = normkey - 97
-    private val hckey = normkey - 65
+    private val normkey by lazy { key % 26 }
+    private val lckey by lazy { normkey - 97 }
+    private val hckey by lazy { normkey - 65 }
 
     fun encode(text: String): String {
         if (normkey == 0) {
