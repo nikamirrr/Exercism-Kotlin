@@ -1,11 +1,11 @@
-import javax.management.Query.div
+import java.util.Collections
 import kotlin.random.Random
 
 class Robot() {
 
     private var storedName = generateName()
     private companion object {
-        val takenNames = HashSet<Int>()
+        val availableNames = (0 until 676000).toMutableList()
     }
 
 
@@ -17,12 +17,15 @@ class Robot() {
     }
 
     private fun generateName(): String {
-        var digitName : Int
-        do {
-            digitName = Random.nextInt(676000)
-        } while (!takenNames.add(digitName))
-        return "%c%c%03d".format(Char(65 + digitName % 26),
-            Char(65 + (digitName / 26) % 26),
-            digitName / 676)
+        Collections.swap(availableNames,
+            Random.nextInt(availableNames.size),
+            availableNames.lastIndex)
+        availableNames.removeLast().let {
+            return "%c%c%03d".format(
+                Char(65 + it % 26),
+                Char(65 + (it / 26) % 26),
+                it / 676
+            )
+        }
     }
 }
