@@ -1,11 +1,12 @@
 import java.util.Collections
 import kotlin.random.Random
+import kotlin.random.nextInt
 
 class Robot() {
 
     private var storedName = generateName()
     private companion object {
-        val availableNames = (0 until 676000).toMutableList()
+        val availableNames = (0 until 676000).shuffled().iterator()
     }
 
 
@@ -17,14 +18,11 @@ class Robot() {
     }
 
     private fun generateName(): String {
-        Collections.swap(availableNames,
-            Random.nextInt(availableNames.size),
-            availableNames.lastIndex)
-        availableNames.removeLast().let {
+        availableNames.next().run {
             return "%c%c%03d".format(
-                Char(65 + it % 26),
-                Char(65 + (it / 26) % 26),
-                it / 676
+                Char(65 + this % 26),
+                Char(65 + (this / 26) % 26),
+                this / 676
             )
         }
     }
